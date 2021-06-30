@@ -12,7 +12,7 @@
 * alamode
 
 #+name: cmf
-#+begin_src emacs-lisp :var map="" :var mode="" :var prefix="" :var short="" :exports none
+#+begin_src emacs-lisp :var map="" :var mode="" :var prefix="" :var short="" :var package="" :exports none
 ;; Adapted From:
 ;; Answer: https://emacs.stackexchange.com/a/7381/31428
 ;; User: https://emacs.stackexchange.com/users/719/adobe
@@ -31,38 +31,42 @@
 )
 
 ;;;###autoload
-(defun meq/%p-hercules-toggle nil (interactive))
+(defun meq/%p-hercules-toggle nil (interactive) (with-eval-after-load '%f))
 
 ;;;###autoload
 (defun meq/%p-show-top-level nil (interactive)
-    (meq/which-key-show-top-level '%m))
+    (with-eval-after-load '%f (meq/which-key-show-top-level '%m)))
 
 ;;;###autoload
 (defun meq/toggle-%p nil (interactive)
-    (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m))
+    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m)))
 
 ;;;###autoload
 (defun meq/toggle-%p-force nil (interactive)
-    (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m nil t))
+    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m nil t)))
 
 ;;;###autoload
 (defun meq/toggle-%p-hercules nil (interactive)
-    (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t))
+    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t)))
 
 ;;;###autoload
 (defun meq/toggle-%p-hercules-force nil (interactive)
-    (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t t))
+    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t t)))
 
 ;;;###autoload
 (defun meq/%p-execute-with-current-bindings (&optional called-interactively) (interactive \"d\")
-    (funcall 'meq/execute-with-current-bindings-inner '%n \"%p\" (meq/fbatp %n) '%m nil called-interactively))
+    (with-eval-after-load '%f (funcall 'meq/execute-with-current-bindings-inner '%n \"%p\" (meq/fbatp %n) '%m nil called-interactively)))
 
 ;;;###autoload
 (defun meq/%p-hercules-execute-with-current-bindings (&optional called-interactively) (interactive \"d\")
-    (funcall 'meq/execute-with-current-bindings-inner '%n \"%p\" (meq/fbatp %n) '%m t called-interactively))
+    (with-eval-after-load '%f (funcall 'meq/execute-with-current-bindings-inner '%n \"%p\" (meq/fbatp %n) '%m t called-interactively)))
 
-    (add-to-list 'modal-modes '%n)
-    (add-to-list 'modal-prefixes \"%p\")" `((?m . ,map) (?n . ,mode) (?p . ,prefix) (?s . ,short)))
+(with-eval-after-load '%f (add-to-list 'modal-modes '%n) (add-to-list 'modal-prefixes \"%p\"))" `(
+    (?m . ,map)
+    (?n . ,mode)
+    (?p . ,prefix)
+    (?s . ,short)
+    (?f . ,package)))
 #+end_src
 
 #+begin_src emacs-lisp :tangle alamode.el
@@ -151,28 +155,21 @@
             (when use-hercules (funcall (intern (concat "meq/" prefix "-hercules-show"))))))
     (error "This function should only be called interactively")))
 
-<<cmf(map="aiern-normal-state-map", mode="aiern-mode", prefix="aiern", short="a")>>
+<<cmf(map="aiern-normal-state-map", mode="aiern-mode", prefix="aiern", short="a", package="aiern")>>
 
-(with-eval-after-load 'ryo-modal
-    <<cmf(map="ryo-modal-mode-map", mode="ryo-modal-mode", prefix="ryo", short="r")>>)
+<<cmf(map="ryo-modal-mode-map", mode="ryo-modal-mode", prefix="ryo", short="r", package="ryo-modal")>>
 
-(with-eval-after-load 'evil
-    <<cmf(map="evil-normal-state-map", mode="evil-mode", prefix="evil", short="e")>>)
+<<cmf(map="evil-normal-state-map", mode="evil-mode", prefix="evil", short="e", package="evil")>>
 
-(with-eval-after-load 'god-mode
-    <<cmf(map="global-map", mode="god-local-mode", prefix="god", short="g")>>)
+<<cmf(map="global-map", mode="god-local-mode", prefix="god", short="g", package="god-mode")>>
 
-(with-eval-after-load 'xah-fly-keys
-    <<cmf(map="xah-fly-command-map", mode="xah-fly-keys", prefix="xah", short="x")>>)
+<<cmf(map="xah-fly-command-map", mode="xah-fly-keys", prefix="xah", short="x", package="xah-fly-keys")>>
 
-(with-eval-after-load 'objed
-    <<cmf(map="objed-map", mode="objed-mode", prefix="objed", short="o")>>)
+<<cmf(map="objed-map", mode="objed-mode", prefix="objed", short="o", package="objed")>>
 
-(with-eval-after-load 'kakoune
-    <<cmf(map="ryo-modal-mode-map", mode="ryo-modal-mode", prefix="kakoune", short="k")>>)
+<<cmf(map="ryo-modal-mode-map", mode="ryo-modal-mode", prefix="kakoune", short="k", package="kakoune")>>
 
-(with-eval-after-load 'modalka
-    <<cmf(map="modalka-mode-map", mode="modalka-mode", prefix="modalka", short="m")>>)
+<<cmf(map="modalka-mode-map", mode="modalka-mode", prefix="modalka", short="m", package="modalka")>>
 
 (provide 'alamode)
 ;;; alamode.el ends here
