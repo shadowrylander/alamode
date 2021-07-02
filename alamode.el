@@ -46,7 +46,6 @@
     (interactive "d")
     (if called-interactively
         (unless mode-on
-        (message (format "Switched to %s mode for the next command ..." prefix))
         (letrec ((caller this-command)
                 (buffer (current-buffer))
                 (cleanup
@@ -55,10 +54,17 @@
                     ;; switched buffers.
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
-                        (unwind-protect (meq/disable-all-modal-modes)
-                            (remove-hook 'post-command-hook post-hook)))
-                        (remove-hook 'post-command-hook post-hook)
-                        (when last-modal-mode (funcall last-modal-mode 1)))))
+                            (unwind-protect
+                                (setq hydra-enabled-temporarily t)
+                                (setq deino-enabled-temporarily t)
+                                (meq/disable-all-modal-modes)
+                                (when backup-modal-mode
+                                    (funcall (intern (concat
+                                        "meq/toggle-"
+                                        (car (split-string (symbol-name mode) "-"))
+                                        (when mode-was-hercules "-hercules")))))
+                                (remove-hook 'post-command-hook post-hook)))
+                        (remove-hook 'post-command-hook post-hook))))
                 (kill-transient-map
                     (set-transient-map
                     map 'meq/god-prefix-command-p cleanup))
@@ -79,9 +85,19 @@
             ;; transient keymap is already in place, but it's useful to provide
             ;; a mode line lighter and run any hook functions the user has set
             ;; up.  This could be made configurable in the future.
-            (funcall mode 1)
-            (when use-hercules (funcall (intern (concat "meq/" prefix "-hercules-show"))))))
+            (setq backup-modal-mode current-modal-mode
+                mode-was-hercules overriding-terminal-local-map)
+            (meq/disable-all-modal-modes)
+            (funcall (intern (concat "meq/toggle-" prefix)))
+            (when use-hercules (funcall (intern (concat "meq/" prefix "-hercules-show"))))
+            (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
+
+(defun meq/toggle-evil-or-aiern-execute (ua) (interactive "p")
+    (cond
+        ((= ua 4) (meq/toggle-evil))
+        ((= ua 16) (meq/toggle-evil-force))
+        (t (meq/aiern-execute-with-current-bindings t))))
 
 (defdeino+ toggles (:color blue)
     ("a" meq/toggle-aiern "aiern"))
