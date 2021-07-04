@@ -193,6 +193,53 @@
 (with-eval-after-load 'ryo-modal (add-to-list 'modal-modes 'ryo-modal-mode) (add-to-list 'modal-prefixes "ryo"))
 
 (defdeino+ toggles (:color blue)
+    ("s" meq/toggle-sorrow "sorrow"))
+(defdeino+ all-keymaps (:color blue)
+    ("s" (progn (setq all-keymaps-map 'sorrow-mode-map)
+    (meq/sorrow-show-top-level)) "sorrow"))
+
+(hercules-def
+    :show-funs #'meq/sorrow-hercules-show
+    :hide-funs #'meq/sorrow-hercules-hide
+    :toggle-funs #'meq/sorrow-hercules-toggle
+    :keymap 'sorrow-mode-map
+    ;; :transient t
+)
+
+;;;###autoload
+(defun meq/sorrow-hercules-toggle nil (interactive) (with-eval-after-load 'sorrow))
+
+;;;###autoload
+(defun meq/sorrow-show-top-level nil (interactive)
+    (with-eval-after-load 'sorrow (meq/which-key-show-top-level 'sorrow-mode-map)))
+
+;;;###autoload
+(defun meq/toggle-sorrow nil (interactive)
+    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map)))
+
+;;;###autoload
+(defun meq/toggle-sorrow-force nil (interactive)
+    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil t)))
+
+;;;###autoload
+(defun meq/toggle-sorrow-hercules nil (interactive)
+    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t)))
+
+;;;###autoload
+(defun meq/toggle-sorrow-hercules-force nil (interactive)
+    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t t)))
+
+;;;###autoload
+(defun meq/sorrow-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+    (with-eval-after-load 'sorrow (funcall 'meq/execute-with-current-bindings-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil called-interactively)))
+
+;;;###autoload
+(defun meq/sorrow-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+    (with-eval-after-load 'sorrow (funcall 'meq/execute-with-current-bindings-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t called-interactively)))
+
+(with-eval-after-load 'sorrow (add-to-list 'modal-modes 'sorrow-mode) (add-to-list 'modal-prefixes "sorrow"))
+
+(defdeino+ toggles (:color blue)
     ("e" meq/toggle-evil "evil"))
 (defdeino+ all-keymaps (:color blue)
     ("e" (progn (setq all-keymaps-map 'evil-normal-state-map)
