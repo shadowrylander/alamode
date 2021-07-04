@@ -127,8 +127,6 @@
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
                             (unwind-protect
-                                (setq hydra-enabled-temporarily t)
-                                (setq deino-enabled-temporarily t)
                                 (meq/disable-all-modal-modes)
                                 (when backup-modal-mode
                                     (funcall (intern (concat
@@ -162,6 +160,7 @@
             (meq/disable-all-modal-modes)
             (funcall (intern (concat "meq/toggle-" prefix)))
             (when use-hercules (funcall (intern (concat "meq/" prefix "-hercules-show"))))
+            (setq deino-enabled-temporarily t)
             (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
 
