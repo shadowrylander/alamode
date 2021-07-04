@@ -55,12 +55,8 @@
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
                             (unwind-protect
-                                (meq/disable-all-modal-modes)
-                                (when backup-modal-mode
-                                    (funcall (intern (concat
-                                        "meq/toggle-"
-                                        (car (split-string (symbol-name mode) "-"))
-                                        (when mode-was-hercules "-hercules")))))
+                                (setq overriding-terminal-local-map backup-terminal-local-map)
+                                (funcall mode -1)
                                 (remove-hook 'post-command-hook post-hook)))
                         (remove-hook 'post-command-hook post-hook))))
                 (kill-transient-map
@@ -83,12 +79,10 @@
             ;; transient keymap is already in place, but it's useful to provide
             ;; a mode line lighter and run any hook functions the user has set
             ;; up.  This could be made configurable in the future.
-            (setq backup-modal-mode current-modal-mode
-                mode-was-hercules overriding-terminal-local-map)
-            (meq/disable-all-modal-modes)
-            (funcall (intern (concat "meq/toggle-" prefix)))
-            (when use-hercules (funcall (intern (concat "meq/" prefix "-hercules-show"))))
-            (setq deino-enabled-temporarily t)
+            (funcall mode 1)
+            (setq backup-terminal-local-map overriding-terminal-local-map)
+            (setq deino-enabled-temporarily t
+                overriding-terminal-local-map (symbol-value map))
             (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
 
