@@ -28,6 +28,9 @@
 (require 'deino)
 (require 'meq)
 
+(defvar meq/var/all-keymaps-map nil)
+(defvar meq/var/last-modal-mode nil)
+
 ;; Adapted From: https://gitlab.com/jjzmajic/hercules.el/-/blob/master/hercules.el#L83
 ;;;###autoload
 (defun meq/toggle-inner (mode prefix mode-on map &optional use-hercules force) (interactive)
@@ -37,8 +40,8 @@
         (funcall mode 1)
         (if use-hercules (ignore-errors (funcall (intern (concat "meq/" prefix "-hercules-show"))))
             (meq/which-key-show-top-level map))
-        (setq current-modal-mode mode)
-        (setq last-modal-mode mode)))
+        (setq meq/var/current-modal-mode mode)
+        (setq meq/var/last-modal-mode mode)))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
 ;;;###autoload
@@ -95,7 +98,7 @@
 (defdeino+ toggles (:color blue)
     ("a" meq/toggle-aiern "aiern"))
 (defdeino+ all-keymaps (:color blue)
-    ("a" (progn (setq all-keymaps-map 'aiern-normal-state-map)
+    ("a" (progn (setq meq/var/all-keymaps-map 'aiern-normal-state-map)
     (meq/aiern-show-top-level)) "aiern"))
 
 (hercules-def
@@ -137,12 +140,12 @@
 (defun meq/aiern-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'aiern (funcall 'meq/execute-with-current-bindings-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t called-interactively)))
 
-(with-eval-after-load 'aiern (add-to-list 'modal-modes 'aiern-mode) (add-to-list 'modal-prefixes "aiern"))
+(with-eval-after-load 'aiern (add-to-list 'meq/var/modal-modes 'aiern-mode) (add-to-list 'meq/var/modal-prefixes "aiern"))
 
 (defdeino+ toggles (:color blue)
     ("r" meq/toggle-ryo "ryo"))
 (defdeino+ all-keymaps (:color blue)
-    ("r" (progn (setq all-keymaps-map 'ryo-modal-mode-map)
+    ("r" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
     (meq/ryo-show-top-level)) "ryo"))
 
 (hercules-def
@@ -184,12 +187,12 @@
 (defun meq/ryo-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'ryo-modal (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t called-interactively)))
 
-(with-eval-after-load 'ryo-modal (add-to-list 'modal-modes 'ryo-modal-mode) (add-to-list 'modal-prefixes "ryo"))
+(with-eval-after-load 'ryo-modal (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "ryo"))
 
 (defdeino+ toggles (:color blue)
     ("s" meq/toggle-sorrow "sorrow"))
 (defdeino+ all-keymaps (:color blue)
-    ("s" (progn (setq all-keymaps-map 'sorrow-mode-map)
+    ("s" (progn (setq meq/var/all-keymaps-map 'sorrow-mode-map)
     (meq/sorrow-show-top-level)) "sorrow"))
 
 (hercules-def
@@ -231,12 +234,12 @@
 (defun meq/sorrow-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'sorrow (funcall 'meq/execute-with-current-bindings-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t called-interactively)))
 
-(with-eval-after-load 'sorrow (add-to-list 'modal-modes 'sorrow-mode) (add-to-list 'modal-prefixes "sorrow"))
+(with-eval-after-load 'sorrow (add-to-list 'meq/var/modal-modes 'sorrow-mode) (add-to-list 'meq/var/modal-prefixes "sorrow"))
 
 (defdeino+ toggles (:color blue)
     ("e" meq/toggle-evil "evil"))
 (defdeino+ all-keymaps (:color blue)
-    ("e" (progn (setq all-keymaps-map 'evil-normal-state-map)
+    ("e" (progn (setq meq/var/all-keymaps-map 'evil-normal-state-map)
     (meq/evil-show-top-level)) "evil"))
 
 (hercules-def
@@ -278,12 +281,12 @@
 (defun meq/evil-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'evil (funcall 'meq/execute-with-current-bindings-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t called-interactively)))
 
-(with-eval-after-load 'evil (add-to-list 'modal-modes 'evil-mode) (add-to-list 'modal-prefixes "evil"))
+(with-eval-after-load 'evil (add-to-list 'meq/var/modal-modes 'evil-mode) (add-to-list 'meq/var/modal-prefixes "evil"))
 
 (defdeino+ toggles (:color blue)
     ("g" meq/toggle-god "god"))
 (defdeino+ all-keymaps (:color blue)
-    ("g" (progn (setq all-keymaps-map 'global-map)
+    ("g" (progn (setq meq/var/all-keymaps-map 'global-map)
     (meq/god-show-top-level)) "god"))
 
 (hercules-def
@@ -325,12 +328,12 @@
 (defun meq/god-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'god-mode (funcall 'meq/execute-with-current-bindings-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t called-interactively)))
 
-(with-eval-after-load 'god-mode (add-to-list 'modal-modes 'god-local-mode) (add-to-list 'modal-prefixes "god"))
+(with-eval-after-load 'god-mode (add-to-list 'meq/var/modal-modes 'god-local-mode) (add-to-list 'meq/var/modal-prefixes "god"))
 
 (defdeino+ toggles (:color blue)
     ("x" meq/toggle-xah "xah"))
 (defdeino+ all-keymaps (:color blue)
-    ("x" (progn (setq all-keymaps-map 'xah-fly-command-map)
+    ("x" (progn (setq meq/var/all-keymaps-map 'xah-fly-command-map)
     (meq/xah-show-top-level)) "xah"))
 
 (hercules-def
@@ -372,12 +375,12 @@
 (defun meq/xah-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/execute-with-current-bindings-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t called-interactively)))
 
-(with-eval-after-load 'xah-fly-keys (add-to-list 'modal-modes 'xah-fly-keys) (add-to-list 'modal-prefixes "xah"))
+(with-eval-after-load 'xah-fly-keys (add-to-list 'meq/var/modal-modes 'xah-fly-keys) (add-to-list 'meq/var/modal-prefixes "xah"))
 
 (defdeino+ toggles (:color blue)
     ("o" meq/toggle-objed "objed"))
 (defdeino+ all-keymaps (:color blue)
-    ("o" (progn (setq all-keymaps-map 'objed-map)
+    ("o" (progn (setq meq/var/all-keymaps-map 'objed-map)
     (meq/objed-show-top-level)) "objed"))
 
 (hercules-def
@@ -419,12 +422,12 @@
 (defun meq/objed-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'objed (funcall 'meq/execute-with-current-bindings-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t called-interactively)))
 
-(with-eval-after-load 'objed (add-to-list 'modal-modes 'objed-mode) (add-to-list 'modal-prefixes "objed"))
+(with-eval-after-load 'objed (add-to-list 'meq/var/modal-modes 'objed-mode) (add-to-list 'meq/var/modal-prefixes "objed"))
 
 (defdeino+ toggles (:color blue)
     ("k" meq/toggle-kakoune "kakoune"))
 (defdeino+ all-keymaps (:color blue)
-    ("k" (progn (setq all-keymaps-map 'ryo-modal-mode-map)
+    ("k" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
     (meq/kakoune-show-top-level)) "kakoune"))
 
 (hercules-def
@@ -466,12 +469,12 @@
 (defun meq/kakoune-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'kakoune (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t called-interactively)))
 
-(with-eval-after-load 'kakoune (add-to-list 'modal-modes 'ryo-modal-mode) (add-to-list 'modal-prefixes "kakoune"))
+(with-eval-after-load 'kakoune (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "kakoune"))
 
 (defdeino+ toggles (:color blue)
     ("m" meq/toggle-modalka "modalka"))
 (defdeino+ all-keymaps (:color blue)
-    ("m" (progn (setq all-keymaps-map 'modalka-mode-map)
+    ("m" (progn (setq meq/var/all-keymaps-map 'modalka-mode-map)
     (meq/modalka-show-top-level)) "modalka"))
 
 (hercules-def
@@ -513,7 +516,7 @@
 (defun meq/modalka-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'modalka (funcall 'meq/execute-with-current-bindings-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t called-interactively)))
 
-(with-eval-after-load 'modalka (add-to-list 'modal-modes 'modalka-mode) (add-to-list 'modal-prefixes "modalka"))
+(with-eval-after-load 'modalka (add-to-list 'meq/var/modal-modes 'modalka-mode) (add-to-list 'meq/var/modal-prefixes "modalka"))
 
 (provide 'alamode)
 ;;; alamode.el ends here

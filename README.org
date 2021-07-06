@@ -12,7 +12,7 @@
 (format-spec "(defdeino+ toggles (:color blue)
     (\"%s\" meq/toggle-%p \"%p\"))
 (defdeino+ all-keymaps (:color blue)
-    (\"%s\" (progn (setq all-keymaps-map '%m)
+    (\"%s\" (progn (setq meq/var/all-keymaps-map '%m)
     (meq/%p-show-top-level)) \"%p\"))
 
 (hercules-def
@@ -54,7 +54,7 @@
 (defun meq/%p-hercules-execute-with-current-bindings (&optional called-interactively) (interactive \"d\")
     (with-eval-after-load '%f (funcall 'meq/execute-with-current-bindings-inner '%n \"%p\" (meq/fbatp %n) '%m t called-interactively)))
 
-(with-eval-after-load '%f (add-to-list 'modal-modes '%n) (add-to-list 'modal-prefixes \"%p\"))" `(
+(with-eval-after-load '%f (add-to-list 'meq/var/modal-modes '%n) (add-to-list 'meq/var/modal-prefixes \"%p\"))" `(
     (?m . ,map)
     (?n . ,mode)
     (?p . ,prefix)
@@ -93,6 +93,9 @@
 (require 'deino)
 (require 'meq)
 
+(defvar meq/var/all-keymaps-map nil)
+(defvar meq/var/last-modal-mode nil)
+
 ;; Adapted From: https://gitlab.com/jjzmajic/hercules.el/-/blob/master/hercules.el#L83
 ;;;###autoload
 (defun meq/toggle-inner (mode prefix mode-on map &optional use-hercules force) (interactive)
@@ -102,8 +105,8 @@
         (funcall mode 1)
         (if use-hercules (ignore-errors (funcall (intern (concat "meq/" prefix "-hercules-show"))))
             (meq/which-key-show-top-level map))
-        (setq current-modal-mode mode)
-        (setq last-modal-mode mode)))
+        (setq meq/var/current-modal-mode mode)
+        (setq meq/var/last-modal-mode mode)))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
 ;;;###autoload
