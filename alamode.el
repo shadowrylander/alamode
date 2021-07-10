@@ -31,21 +31,21 @@
 (defvar meq/var/all-keymaps-map nil)
 (defvar meq/var/last-modal-mode nil)
 
-;; Adapted From: https://gitlab.com/jjzmajic/hercules.el/-/blob/master/hercules.el#L83
+;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
-(defun meq/toggle-inner (mode prefix mode-on map &optional use-hercules force) (interactive)
+(defun meq/toggle-inner (mode prefix mode-on map &optional use-cosmoem force) (interactive)
     (meq/disable-all-modal-modes)
     (if mode-on
         (when force (meq/which-key--show-popup map force))
         (funcall mode 1)
-        (if use-hercules (ignore-errors (funcall (intern (concat "meq/" prefix "-hercules-show"))))
+        (if use-cosmoem (ignore-errors (funcall (intern (concat "meq/" prefix "-cosmoem-show"))))
             (meq/which-key-show-top-level map))
         (setq meq/var/current-modal-mode mode)
         (setq meq/var/last-modal-mode mode)))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
 ;;;###autoload
-(defun meq/execute-with-current-bindings-inner (mode prefix mode-on map &optional use-hercules called-interactively)
+(defun meq/execute-with-current-bindings-inner (mode prefix mode-on map &optional use-cosmoem called-interactively)
     (interactive "d")
     (if called-interactively
         (unless mode-on
@@ -101,16 +101,16 @@
     ("a" (progn (setq meq/var/all-keymaps-map 'aiern-normal-state-map)
     (meq/aiern-show-top-level)) "aiern"))
 
-(hercules-def
-    :show-funs #'meq/aiern-hercules-show
-    :hide-funs #'meq/aiern-hercules-hide
-    :toggle-funs #'meq/aiern-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/aiern-cosmoem-show
+    :hide-funs #'meq/aiern-cosmoem-hide
+    :toggle-funs #'meq/aiern-cosmoem-toggle
     :keymap 'aiern-normal-state-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/aiern-hercules-toggle nil (interactive) (with-eval-after-load 'aiern))
+(defun meq/aiern-cosmoem-toggle nil (interactive) (with-eval-after-load 'aiern))
 
 ;;;###autoload
 (defun meq/aiern-show-top-level nil (interactive)
@@ -125,11 +125,11 @@
     (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-aiern-hercules nil (interactive)
+(defun meq/toggle-aiern-cosmoem nil (interactive)
     (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t)))
 
 ;;;###autoload
-(defun meq/toggle-aiern-hercules-force nil (interactive)
+(defun meq/toggle-aiern-cosmoem-force nil (interactive)
     (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t t)))
 
 ;;;###autoload
@@ -137,7 +137,7 @@
     (with-eval-after-load 'aiern (funcall 'meq/execute-with-current-bindings-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/aiern-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/aiern-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'aiern (funcall 'meq/execute-with-current-bindings-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t called-interactively)))
 
 (with-eval-after-load 'aiern (add-to-list 'meq/var/modal-modes 'aiern-mode) (add-to-list 'meq/var/modal-prefixes "aiern"))
@@ -148,16 +148,16 @@
     ("r" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
     (meq/ryo-show-top-level)) "ryo"))
 
-(hercules-def
-    :show-funs #'meq/ryo-hercules-show
-    :hide-funs #'meq/ryo-hercules-hide
-    :toggle-funs #'meq/ryo-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/ryo-cosmoem-show
+    :hide-funs #'meq/ryo-cosmoem-hide
+    :toggle-funs #'meq/ryo-cosmoem-toggle
     :keymap 'ryo-modal-mode-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/ryo-hercules-toggle nil (interactive) (with-eval-after-load 'ryo-modal))
+(defun meq/ryo-cosmoem-toggle nil (interactive) (with-eval-after-load 'ryo-modal))
 
 ;;;###autoload
 (defun meq/ryo-show-top-level nil (interactive)
@@ -172,11 +172,11 @@
     (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-ryo-hercules nil (interactive)
+(defun meq/toggle-ryo-cosmoem nil (interactive)
     (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t)))
 
 ;;;###autoload
-(defun meq/toggle-ryo-hercules-force nil (interactive)
+(defun meq/toggle-ryo-cosmoem-force nil (interactive)
     (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)))
 
 ;;;###autoload
@@ -184,7 +184,7 @@
     (with-eval-after-load 'ryo-modal (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/ryo-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/ryo-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'ryo-modal (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t called-interactively)))
 
 (with-eval-after-load 'ryo-modal (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "ryo"))
@@ -195,16 +195,16 @@
     ("s" (progn (setq meq/var/all-keymaps-map 'sorrow-mode-map)
     (meq/sorrow-show-top-level)) "sorrow"))
 
-(hercules-def
-    :show-funs #'meq/sorrow-hercules-show
-    :hide-funs #'meq/sorrow-hercules-hide
-    :toggle-funs #'meq/sorrow-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/sorrow-cosmoem-show
+    :hide-funs #'meq/sorrow-cosmoem-hide
+    :toggle-funs #'meq/sorrow-cosmoem-toggle
     :keymap 'sorrow-mode-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/sorrow-hercules-toggle nil (interactive) (with-eval-after-load 'sorrow))
+(defun meq/sorrow-cosmoem-toggle nil (interactive) (with-eval-after-load 'sorrow))
 
 ;;;###autoload
 (defun meq/sorrow-show-top-level nil (interactive)
@@ -219,11 +219,11 @@
     (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-sorrow-hercules nil (interactive)
+(defun meq/toggle-sorrow-cosmoem nil (interactive)
     (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t)))
 
 ;;;###autoload
-(defun meq/toggle-sorrow-hercules-force nil (interactive)
+(defun meq/toggle-sorrow-cosmoem-force nil (interactive)
     (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t t)))
 
 ;;;###autoload
@@ -231,7 +231,7 @@
     (with-eval-after-load 'sorrow (funcall 'meq/execute-with-current-bindings-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/sorrow-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/sorrow-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'sorrow (funcall 'meq/execute-with-current-bindings-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t called-interactively)))
 
 (with-eval-after-load 'sorrow (add-to-list 'meq/var/modal-modes 'sorrow-mode) (add-to-list 'meq/var/modal-prefixes "sorrow"))
@@ -242,16 +242,16 @@
     ("e" (progn (setq meq/var/all-keymaps-map 'evil-normal-state-map)
     (meq/evil-show-top-level)) "evil"))
 
-(hercules-def
-    :show-funs #'meq/evil-hercules-show
-    :hide-funs #'meq/evil-hercules-hide
-    :toggle-funs #'meq/evil-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/evil-cosmoem-show
+    :hide-funs #'meq/evil-cosmoem-hide
+    :toggle-funs #'meq/evil-cosmoem-toggle
     :keymap 'evil-normal-state-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/evil-hercules-toggle nil (interactive) (with-eval-after-load 'evil))
+(defun meq/evil-cosmoem-toggle nil (interactive) (with-eval-after-load 'evil))
 
 ;;;###autoload
 (defun meq/evil-show-top-level nil (interactive)
@@ -266,11 +266,11 @@
     (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-evil-hercules nil (interactive)
+(defun meq/toggle-evil-cosmoem nil (interactive)
     (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t)))
 
 ;;;###autoload
-(defun meq/toggle-evil-hercules-force nil (interactive)
+(defun meq/toggle-evil-cosmoem-force nil (interactive)
     (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t t)))
 
 ;;;###autoload
@@ -278,7 +278,7 @@
     (with-eval-after-load 'evil (funcall 'meq/execute-with-current-bindings-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/evil-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/evil-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'evil (funcall 'meq/execute-with-current-bindings-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t called-interactively)))
 
 (with-eval-after-load 'evil (add-to-list 'meq/var/modal-modes 'evil-mode) (add-to-list 'meq/var/modal-prefixes "evil"))
@@ -289,16 +289,16 @@
     ("g" (progn (setq meq/var/all-keymaps-map 'global-map)
     (meq/god-show-top-level)) "god"))
 
-(hercules-def
-    :show-funs #'meq/god-hercules-show
-    :hide-funs #'meq/god-hercules-hide
-    :toggle-funs #'meq/god-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/god-cosmoem-show
+    :hide-funs #'meq/god-cosmoem-hide
+    :toggle-funs #'meq/god-cosmoem-toggle
     :keymap 'global-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/god-hercules-toggle nil (interactive) (with-eval-after-load 'god-mode))
+(defun meq/god-cosmoem-toggle nil (interactive) (with-eval-after-load 'god-mode))
 
 ;;;###autoload
 (defun meq/god-show-top-level nil (interactive)
@@ -313,11 +313,11 @@
     (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-god-hercules nil (interactive)
+(defun meq/toggle-god-cosmoem nil (interactive)
     (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t)))
 
 ;;;###autoload
-(defun meq/toggle-god-hercules-force nil (interactive)
+(defun meq/toggle-god-cosmoem-force nil (interactive)
     (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t t)))
 
 ;;;###autoload
@@ -325,7 +325,7 @@
     (with-eval-after-load 'god-mode (funcall 'meq/execute-with-current-bindings-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/god-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/god-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'god-mode (funcall 'meq/execute-with-current-bindings-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t called-interactively)))
 
 (with-eval-after-load 'god-mode (add-to-list 'meq/var/modal-modes 'god-local-mode) (add-to-list 'meq/var/modal-prefixes "god"))
@@ -336,16 +336,16 @@
     ("x" (progn (setq meq/var/all-keymaps-map 'xah-fly-command-map)
     (meq/xah-show-top-level)) "xah"))
 
-(hercules-def
-    :show-funs #'meq/xah-hercules-show
-    :hide-funs #'meq/xah-hercules-hide
-    :toggle-funs #'meq/xah-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/xah-cosmoem-show
+    :hide-funs #'meq/xah-cosmoem-hide
+    :toggle-funs #'meq/xah-cosmoem-toggle
     :keymap 'xah-fly-command-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/xah-hercules-toggle nil (interactive) (with-eval-after-load 'xah-fly-keys))
+(defun meq/xah-cosmoem-toggle nil (interactive) (with-eval-after-load 'xah-fly-keys))
 
 ;;;###autoload
 (defun meq/xah-show-top-level nil (interactive)
@@ -360,11 +360,11 @@
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-xah-hercules nil (interactive)
+(defun meq/toggle-xah-cosmoem nil (interactive)
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t)))
 
 ;;;###autoload
-(defun meq/toggle-xah-hercules-force nil (interactive)
+(defun meq/toggle-xah-cosmoem-force nil (interactive)
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t t)))
 
 ;;;###autoload
@@ -372,7 +372,7 @@
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/execute-with-current-bindings-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/xah-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/xah-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'xah-fly-keys (funcall 'meq/execute-with-current-bindings-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t called-interactively)))
 
 (with-eval-after-load 'xah-fly-keys (add-to-list 'meq/var/modal-modes 'xah-fly-keys) (add-to-list 'meq/var/modal-prefixes "xah"))
@@ -383,16 +383,16 @@
     ("o" (progn (setq meq/var/all-keymaps-map 'objed-map)
     (meq/objed-show-top-level)) "objed"))
 
-(hercules-def
-    :show-funs #'meq/objed-hercules-show
-    :hide-funs #'meq/objed-hercules-hide
-    :toggle-funs #'meq/objed-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/objed-cosmoem-show
+    :hide-funs #'meq/objed-cosmoem-hide
+    :toggle-funs #'meq/objed-cosmoem-toggle
     :keymap 'objed-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/objed-hercules-toggle nil (interactive) (with-eval-after-load 'objed))
+(defun meq/objed-cosmoem-toggle nil (interactive) (with-eval-after-load 'objed))
 
 ;;;###autoload
 (defun meq/objed-show-top-level nil (interactive)
@@ -407,11 +407,11 @@
     (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-objed-hercules nil (interactive)
+(defun meq/toggle-objed-cosmoem nil (interactive)
     (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t)))
 
 ;;;###autoload
-(defun meq/toggle-objed-hercules-force nil (interactive)
+(defun meq/toggle-objed-cosmoem-force nil (interactive)
     (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t t)))
 
 ;;;###autoload
@@ -419,7 +419,7 @@
     (with-eval-after-load 'objed (funcall 'meq/execute-with-current-bindings-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/objed-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/objed-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'objed (funcall 'meq/execute-with-current-bindings-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t called-interactively)))
 
 (with-eval-after-load 'objed (add-to-list 'meq/var/modal-modes 'objed-mode) (add-to-list 'meq/var/modal-prefixes "objed"))
@@ -430,16 +430,16 @@
     ("k" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
     (meq/kakoune-show-top-level)) "kakoune"))
 
-(hercules-def
-    :show-funs #'meq/kakoune-hercules-show
-    :hide-funs #'meq/kakoune-hercules-hide
-    :toggle-funs #'meq/kakoune-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/kakoune-cosmoem-show
+    :hide-funs #'meq/kakoune-cosmoem-hide
+    :toggle-funs #'meq/kakoune-cosmoem-toggle
     :keymap 'ryo-modal-mode-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/kakoune-hercules-toggle nil (interactive) (with-eval-after-load 'kakoune))
+(defun meq/kakoune-cosmoem-toggle nil (interactive) (with-eval-after-load 'kakoune))
 
 ;;;###autoload
 (defun meq/kakoune-show-top-level nil (interactive)
@@ -454,11 +454,11 @@
     (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-kakoune-hercules nil (interactive)
+(defun meq/toggle-kakoune-cosmoem nil (interactive)
     (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t)))
 
 ;;;###autoload
-(defun meq/toggle-kakoune-hercules-force nil (interactive)
+(defun meq/toggle-kakoune-cosmoem-force nil (interactive)
     (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)))
 
 ;;;###autoload
@@ -466,7 +466,7 @@
     (with-eval-after-load 'kakoune (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/kakoune-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/kakoune-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'kakoune (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t called-interactively)))
 
 (with-eval-after-load 'kakoune (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "kakoune"))
@@ -477,16 +477,16 @@
     ("m" (progn (setq meq/var/all-keymaps-map 'modalka-mode-map)
     (meq/modalka-show-top-level)) "modalka"))
 
-(hercules-def
-    :show-funs #'meq/modalka-hercules-show
-    :hide-funs #'meq/modalka-hercules-hide
-    :toggle-funs #'meq/modalka-hercules-toggle
+(cosmoem-def
+    :show-funs #'meq/modalka-cosmoem-show
+    :hide-funs #'meq/modalka-cosmoem-hide
+    :toggle-funs #'meq/modalka-cosmoem-toggle
     :keymap 'modalka-mode-map
     ;; :transient t
 )
 
 ;;;###autoload
-(defun meq/modalka-hercules-toggle nil (interactive) (with-eval-after-load 'modalka))
+(defun meq/modalka-cosmoem-toggle nil (interactive) (with-eval-after-load 'modalka))
 
 ;;;###autoload
 (defun meq/modalka-show-top-level nil (interactive)
@@ -501,11 +501,11 @@
     (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map nil t)))
 
 ;;;###autoload
-(defun meq/toggle-modalka-hercules nil (interactive)
+(defun meq/toggle-modalka-cosmoem nil (interactive)
     (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t)))
 
 ;;;###autoload
-(defun meq/toggle-modalka-hercules-force nil (interactive)
+(defun meq/toggle-modalka-cosmoem-force nil (interactive)
     (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t t)))
 
 ;;;###autoload
@@ -513,7 +513,7 @@
     (with-eval-after-load 'modalka (funcall 'meq/execute-with-current-bindings-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map nil called-interactively)))
 
 ;;;###autoload
-(defun meq/modalka-hercules-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+(defun meq/modalka-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
     (with-eval-after-load 'modalka (funcall 'meq/execute-with-current-bindings-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t called-interactively)))
 
 (with-eval-after-load 'modalka (add-to-list 'meq/var/modal-modes 'modalka-mode) (add-to-list 'meq/var/modal-prefixes "modalka"))
