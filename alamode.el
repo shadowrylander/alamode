@@ -89,12 +89,6 @@
             (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
 
-(defun meq/toggle-evil-or-aiern-execute (ua) (interactive "p")
-    (cond
-        ((= ua 4) (meq/toggle-evil))
-        ((= ua 16) (meq/toggle-evil-force))
-        (t (meq/aiern-execute-with-current-bindings t))))
-
 (defdeino+ toggles (:color blue)
     ("a" meq/toggle-aiern "aiern"))
 (defdeino+ all-keymaps (:color blue)
@@ -117,20 +111,16 @@
     (with-eval-after-load 'aiern (meq/which-key-show-top-level 'aiern-normal-state-map)))
 
 ;;;###autoload
-(defun meq/toggle-aiern nil (interactive)
-    (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map)))
+(defun meq/toggle-aiern (ua) (interactive "p")
+    (with-eval-after-load 'aiern (if (= ua 4)
+        (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map nil t)
+        (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map))))
 
 ;;;###autoload
-(defun meq/toggle-aiern-force nil (interactive)
-    (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-aiern-cosmoem nil (interactive)
-    (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t)))
-
-;;;###autoload
-(defun meq/toggle-aiern-cosmoem-force nil (interactive)
-    (with-eval-after-load 'aiern (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t t)))
+(defun meq/toggle-aiern-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'aiern (if (= ua 4)
+        (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t t)
+        (funcall 'meq/toggle-inner 'aiern-mode "aiern" (meq/fbatp aiern-mode) 'aiern-normal-state-map t))))
 
 ;;;###autoload
 (defun meq/aiern-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -164,20 +154,16 @@
     (with-eval-after-load 'ryo-modal (meq/which-key-show-top-level 'ryo-modal-mode-map)))
 
 ;;;###autoload
-(defun meq/toggle-ryo nil (interactive)
-    (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map)))
+(defun meq/toggle-ryo (ua) (interactive "p")
+    (with-eval-after-load 'ryo-modal (if (= ua 4)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map))))
 
 ;;;###autoload
-(defun meq/toggle-ryo-force nil (interactive)
-    (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-ryo-cosmoem nil (interactive)
-    (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t)))
-
-;;;###autoload
-(defun meq/toggle-ryo-cosmoem-force nil (interactive)
-    (with-eval-after-load 'ryo-modal (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)))
+(defun meq/toggle-ryo-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'ryo-modal (if (= ua 4)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "ryo" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t))))
 
 ;;;###autoload
 (defun meq/ryo-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -211,20 +197,16 @@
     (with-eval-after-load 'sorrow (meq/which-key-show-top-level 'sorrow-mode-map)))
 
 ;;;###autoload
-(defun meq/toggle-sorrow nil (interactive)
-    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map)))
+(defun meq/toggle-sorrow (ua) (interactive "p")
+    (with-eval-after-load 'sorrow (if (= ua 4)
+        (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil t)
+        (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map))))
 
 ;;;###autoload
-(defun meq/toggle-sorrow-force nil (interactive)
-    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-sorrow-cosmoem nil (interactive)
-    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t)))
-
-;;;###autoload
-(defun meq/toggle-sorrow-cosmoem-force nil (interactive)
-    (with-eval-after-load 'sorrow (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t t)))
+(defun meq/toggle-sorrow-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'sorrow (if (= ua 4)
+        (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t t)
+        (funcall 'meq/toggle-inner 'sorrow-mode "sorrow" (meq/fbatp sorrow-mode) 'sorrow-mode-map t))))
 
 ;;;###autoload
 (defun meq/sorrow-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -258,20 +240,16 @@
     (with-eval-after-load 'evil (meq/which-key-show-top-level 'evil-normal-state-map)))
 
 ;;;###autoload
-(defun meq/toggle-evil nil (interactive)
-    (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map)))
+(defun meq/toggle-evil (ua) (interactive "p")
+    (with-eval-after-load 'evil (if (= ua 4)
+        (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map nil t)
+        (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map))))
 
 ;;;###autoload
-(defun meq/toggle-evil-force nil (interactive)
-    (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-evil-cosmoem nil (interactive)
-    (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t)))
-
-;;;###autoload
-(defun meq/toggle-evil-cosmoem-force nil (interactive)
-    (with-eval-after-load 'evil (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t t)))
+(defun meq/toggle-evil-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'evil (if (= ua 4)
+        (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t t)
+        (funcall 'meq/toggle-inner 'evil-mode "evil" (meq/fbatp evil-mode) 'evil-normal-state-map t))))
 
 ;;;###autoload
 (defun meq/evil-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -305,20 +283,16 @@
     (with-eval-after-load 'god-mode (meq/which-key-show-top-level 'global-map)))
 
 ;;;###autoload
-(defun meq/toggle-god nil (interactive)
-    (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map)))
+(defun meq/toggle-god (ua) (interactive "p")
+    (with-eval-after-load 'god-mode (if (= ua 4)
+        (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map nil t)
+        (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map))))
 
 ;;;###autoload
-(defun meq/toggle-god-force nil (interactive)
-    (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-god-cosmoem nil (interactive)
-    (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t)))
-
-;;;###autoload
-(defun meq/toggle-god-cosmoem-force nil (interactive)
-    (with-eval-after-load 'god-mode (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t t)))
+(defun meq/toggle-god-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'god-mode (if (= ua 4)
+        (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t t)
+        (funcall 'meq/toggle-inner 'god-local-mode "god" (meq/fbatp god-local-mode) 'global-map t))))
 
 ;;;###autoload
 (defun meq/god-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -352,20 +326,16 @@
     (with-eval-after-load 'xah-fly-keys (meq/which-key-show-top-level 'xah-fly-command-map)))
 
 ;;;###autoload
-(defun meq/toggle-xah nil (interactive)
-    (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map)))
+(defun meq/toggle-xah (ua) (interactive "p")
+    (with-eval-after-load 'xah-fly-keys (if (= ua 4)
+        (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map nil t)
+        (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map))))
 
 ;;;###autoload
-(defun meq/toggle-xah-force nil (interactive)
-    (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-xah-cosmoem nil (interactive)
-    (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t)))
-
-;;;###autoload
-(defun meq/toggle-xah-cosmoem-force nil (interactive)
-    (with-eval-after-load 'xah-fly-keys (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t t)))
+(defun meq/toggle-xah-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'xah-fly-keys (if (= ua 4)
+        (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t t)
+        (funcall 'meq/toggle-inner 'xah-fly-keys "xah" (meq/fbatp xah-fly-keys) 'xah-fly-command-map t))))
 
 ;;;###autoload
 (defun meq/xah-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -399,20 +369,16 @@
     (with-eval-after-load 'objed (meq/which-key-show-top-level 'objed-map)))
 
 ;;;###autoload
-(defun meq/toggle-objed nil (interactive)
-    (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map)))
+(defun meq/toggle-objed (ua) (interactive "p")
+    (with-eval-after-load 'objed (if (= ua 4)
+        (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map nil t)
+        (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map))))
 
 ;;;###autoload
-(defun meq/toggle-objed-force nil (interactive)
-    (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-objed-cosmoem nil (interactive)
-    (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t)))
-
-;;;###autoload
-(defun meq/toggle-objed-cosmoem-force nil (interactive)
-    (with-eval-after-load 'objed (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t t)))
+(defun meq/toggle-objed-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'objed (if (= ua 4)
+        (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t t)
+        (funcall 'meq/toggle-inner 'objed-mode "objed" (meq/fbatp objed-mode) 'objed-map t))))
 
 ;;;###autoload
 (defun meq/objed-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -446,20 +412,16 @@
     (with-eval-after-load 'kakoune (meq/which-key-show-top-level 'ryo-modal-mode-map)))
 
 ;;;###autoload
-(defun meq/toggle-kakoune nil (interactive)
-    (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map)))
+(defun meq/toggle-kakoune (ua) (interactive "p")
+    (with-eval-after-load 'kakoune (if (= ua 4)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map))))
 
 ;;;###autoload
-(defun meq/toggle-kakoune-force nil (interactive)
-    (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-kakoune-cosmoem nil (interactive)
-    (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t)))
-
-;;;###autoload
-(defun meq/toggle-kakoune-cosmoem-force nil (interactive)
-    (with-eval-after-load 'kakoune (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)))
+(defun meq/toggle-kakoune-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'kakoune (if (= ua 4)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)
+        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t))))
 
 ;;;###autoload
 (defun meq/kakoune-execute-with-current-bindings (&optional called-interactively) (interactive "d")
@@ -493,20 +455,16 @@
     (with-eval-after-load 'modalka (meq/which-key-show-top-level 'modalka-mode-map)))
 
 ;;;###autoload
-(defun meq/toggle-modalka nil (interactive)
-    (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map)))
+(defun meq/toggle-modalka (ua) (interactive "p")
+    (with-eval-after-load 'modalka (if (= ua 4)
+        (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map nil t)
+        (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map))))
 
 ;;;###autoload
-(defun meq/toggle-modalka-force nil (interactive)
-    (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map nil t)))
-
-;;;###autoload
-(defun meq/toggle-modalka-cosmoem nil (interactive)
-    (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t)))
-
-;;;###autoload
-(defun meq/toggle-modalka-cosmoem-force nil (interactive)
-    (with-eval-after-load 'modalka (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t t)))
+(defun meq/toggle-modalka-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'modalka (if (= ua 4)
+        (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t t)
+        (funcall 'meq/toggle-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t))))
 
 ;;;###autoload
 (defun meq/modalka-execute-with-current-bindings (&optional called-interactively) (interactive "d")

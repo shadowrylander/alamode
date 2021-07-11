@@ -31,20 +31,16 @@
     (with-eval-after-load '%f (meq/which-key-show-top-level '%m)))
 
 ;;;###autoload
-(defun meq/toggle-%p nil (interactive)
-    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m)))
+(defun meq/toggle-%p (ua) (interactive \"p\")
+    (with-eval-after-load '%f (if (= ua 4)
+        (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m nil t)
+        (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m))))
 
 ;;;###autoload
-(defun meq/toggle-%p-force nil (interactive)
-    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m nil t)))
-
-;;;###autoload
-(defun meq/toggle-%p-cosmoem nil (interactive)
-    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t)))
-
-;;;###autoload
-(defun meq/toggle-%p-cosmoem-force nil (interactive)
-    (with-eval-after-load '%f (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t t)))
+(defun meq/toggle-%p-cosmoem (ua) (interactive \"p\")
+    (with-eval-after-load '%f (if (= ua 4)
+        (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t t)
+        (funcall 'meq/toggle-inner '%n \"%p\" (meq/fbatp %n) '%m t))))
 
 ;;;###autoload
 (defun meq/%p-execute-with-current-bindings (&optional called-interactively) (interactive \"d\")
@@ -153,12 +149,6 @@
                 overriding-terminal-local-map (symbol-value map))
             (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
-
-(defun meq/toggle-evil-or-aiern-execute (ua) (interactive "p")
-    (cond
-        ((= ua 4) (meq/toggle-evil))
-        ((= ua 16) (meq/toggle-evil-force))
-        (t (meq/aiern-execute-with-current-bindings t))))
 
 <<cmf(map="aiern-normal-state-map", mode="aiern-mode", prefix="aiern", short="a", package="aiern")>>
 
