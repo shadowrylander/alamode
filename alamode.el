@@ -27,21 +27,19 @@
 
 (require 'deino)
 (require 'meq)
+(require 'dash)
 
 (defvar meq/var/all-keymaps-map nil)
-(defvar meq/var/last-modal-mode nil)
 
 ;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
 (defun meq/toggle-inner (mode prefix mode-on map &optional use-cosmoem force) (interactive)
-    (meq/disable-all-modal-modes)
+    (meq/disable-all-modal-modes nil (not mode-on))
     (if mode-on
         (when force (meq/which-key--show-popup map force))
         (funcall mode 1)
         (if use-cosmoem (ignore-errors (funcall (intern (concat "meq/" prefix "-cosmoem-show"))))
-            (meq/which-key-show-top-level map))
-        (setq meq/var/current-modal-mode mode)
-        (setq meq/var/last-modal-mode mode)))
+            (meq/which-key-show-top-level map))))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
 ;;;###autoload
@@ -58,7 +56,7 @@
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
                             (unwind-protect
-                                (setq overriding-terminal-local-map backup-terminal-local-map)
+                                (setq overriding-terminal-local-map meq/var/backup-terminal-local-map)
                                 (funcall mode -1)
                                 (remove-hook 'post-command-hook post-hook)))
                         (remove-hook 'post-command-hook post-hook))))
@@ -83,7 +81,7 @@
             ;; a mode line lighter and run any hook functions the user has set
             ;; up.  This could be made configurable in the future.
             (funcall mode 1)
-            (setq backup-terminal-local-map overriding-terminal-local-map)
+            (setq meq/var/backup-terminal-local-map overriding-terminal-local-map)
             (setq deino-enabled-temporarily t
                 overriding-terminal-local-map (symbol-value map))
             (message (format "Switched to %s mode for the next command ..." prefix))))
