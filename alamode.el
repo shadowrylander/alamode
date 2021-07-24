@@ -389,49 +389,6 @@
 (with-eval-after-load 'objed (add-to-list 'meq/var/modal-modes 'objed-mode) (add-to-list 'meq/var/modal-prefixes "objed"))
 
 (defdeino+ toggles (:color blue)
-    ("k" meq/toggle-kakoune "kakoune"))
-(defdeino+ all-keymaps (:color blue)
-    ("k" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
-    (meq/kakoune-show-top-level)) "kakoune"))
-
-(cosmoem-def
-    :show-funs #'meq/kakoune-cosmoem-show
-    :hide-funs #'meq/kakoune-cosmoem-hide
-    :toggle-funs #'meq/kakoune-cosmoem-toggle
-    :keymap 'ryo-modal-mode-map
-    ;; :transient t
-)
-
-;;;###autoload
-(defun meq/kakoune-cosmoem-toggle nil (interactive) (with-eval-after-load 'kakoune))
-
-;;;###autoload
-(defun meq/kakoune-show-top-level nil (interactive)
-    (with-eval-after-load 'kakoune (meq/which-key-show-top-level 'ryo-modal-mode-map)))
-
-;;;###autoload
-(defun meq/toggle-kakoune (ua) (interactive "p")
-    (with-eval-after-load 'kakoune (if (= ua 4)
-        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil t)
-        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map))))
-
-;;;###autoload
-(defun meq/toggle-kakoune-cosmoem (ua) (interactive "p")
-    (with-eval-after-load 'kakoune (if (= ua 4)
-        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t t)
-        (funcall 'meq/toggle-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t))))
-
-;;;###autoload
-(defun meq/kakoune-execute-with-current-bindings (&optional called-interactively) (interactive "d")
-    (with-eval-after-load 'kakoune (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map nil called-interactively)))
-
-;;;###autoload
-(defun meq/kakoune-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
-    (with-eval-after-load 'kakoune (funcall 'meq/execute-with-current-bindings-inner 'ryo-modal-mode "kakoune" (meq/fbatp ryo-modal-mode) 'ryo-modal-mode-map t called-interactively)))
-
-(with-eval-after-load 'kakoune (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "kakoune"))
-
-(defdeino+ toggles (:color blue)
     ("m" meq/toggle-modalka "modalka"))
 (defdeino+ all-keymaps (:color blue)
     ("m" (progn (setq meq/var/all-keymaps-map 'modalka-mode-map)
@@ -473,6 +430,49 @@
     (with-eval-after-load 'modalka (funcall 'meq/execute-with-current-bindings-inner 'modalka-mode "modalka" (meq/fbatp modalka-mode) 'modalka-mode-map t called-interactively)))
 
 (with-eval-after-load 'modalka (add-to-list 'meq/var/modal-modes 'modalka-mode) (add-to-list 'meq/var/modal-prefixes "modalka"))
+
+(defdeino+ toggles (:color blue)
+    ("l" meq/toggle-lispy "lispy"))
+(defdeino+ all-keymaps (:color blue)
+    ("l" (progn (setq meq/var/all-keymaps-map 'lispy-mode-map)
+    (meq/lispy-show-top-level)) "lispy"))
+
+(cosmoem-def
+    :show-funs #'meq/lispy-cosmoem-show
+    :hide-funs #'meq/lispy-cosmoem-hide
+    :toggle-funs #'meq/lispy-cosmoem-toggle
+    :keymap 'lispy-mode-map
+    ;; :transient t
+)
+
+;;;###autoload
+(defun meq/lispy-cosmoem-toggle nil (interactive) (with-eval-after-load 'lispy))
+
+;;;###autoload
+(defun meq/lispy-show-top-level nil (interactive)
+    (with-eval-after-load 'lispy (meq/which-key-show-top-level 'lispy-mode-map)))
+
+;;;###autoload
+(defun meq/toggle-lispy (ua) (interactive "p")
+    (with-eval-after-load 'lispy (if (= ua 4)
+        (funcall 'meq/toggle-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map nil t)
+        (funcall 'meq/toggle-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map))))
+
+;;;###autoload
+(defun meq/toggle-lispy-cosmoem (ua) (interactive "p")
+    (with-eval-after-load 'lispy (if (= ua 4)
+        (funcall 'meq/toggle-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map t t)
+        (funcall 'meq/toggle-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map t))))
+
+;;;###autoload
+(defun meq/lispy-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+    (with-eval-after-load 'lispy (funcall 'meq/execute-with-current-bindings-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map nil called-interactively)))
+
+;;;###autoload
+(defun meq/lispy-cosmoem-execute-with-current-bindings (&optional called-interactively) (interactive "d")
+    (with-eval-after-load 'lispy (funcall 'meq/execute-with-current-bindings-inner 'lispy-mode "lispy" (meq/fbatp lispy-mode) 'lispy-mode-map t called-interactively)))
+
+(with-eval-after-load 'lispy (add-to-list 'meq/var/modal-modes 'lispy-mode) (add-to-list 'meq/var/modal-prefixes "lispy"))
 
 (provide 'alamode)
 ;;; alamode.el ends here

@@ -162,9 +162,9 @@
 
 <<cmf(map="objed-map", mode="objed-mode", prefix="objed", short="o", package="objed")>>
 
-<<cmf(map="ryo-modal-mode-map", mode="ryo-modal-mode", prefix="kakoune", short="k", package="kakoune")>>
-
 <<cmf(map="modalka-mode-map", mode="modalka-mode", prefix="modalka", short="m", package="modalka")>>
+
+<<cmf(map="lispy-mode-map", mode="lispy-mode", prefix="lispy", short="l", package="lispy")>>
 
 (provide 'alamode)
 ;;; alamode.el ends here
