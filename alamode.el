@@ -29,8 +29,6 @@
 (require 'meq)
 (require 'dash)
 
-(defvar meq/var/all-keymaps-map nil)
-
 ;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
 (defun meq/toggle-inner (mode prefix mode-on map &optional use-cosmoem force) (interactive)
@@ -90,8 +88,7 @@
 (defdeino+ toggles (:color blue)
     ("a" meq/toggle-aiern "aiern"))
 (defdeino+ all-keymaps (:color blue)
-    ("a" (progn (setq meq/var/all-keymaps-map 'aiern-normal-state-map)
-    (meq/aiern-show-top-level)) "aiern"))
+    ("a" meq/aiern-show-top-level "aiern"))
 
 (cosmoem-def
     :show-funs #'meq/aiern-cosmoem-show
@@ -133,8 +130,7 @@
 (defdeino+ toggles (:color blue)
     ("r" meq/toggle-ryo "ryo"))
 (defdeino+ all-keymaps (:color blue)
-    ("r" (progn (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
-    (meq/ryo-show-top-level)) "ryo"))
+    ("r" meq/ryo-show-top-level "ryo"))
 
 (cosmoem-def
     :show-funs #'meq/ryo-cosmoem-show
@@ -176,8 +172,7 @@
 (defdeino+ toggles (:color blue)
     ("s" meq/toggle-sorrow "sorrow"))
 (defdeino+ all-keymaps (:color blue)
-    ("s" (progn (setq meq/var/all-keymaps-map 'sorrow-mode-map)
-    (meq/sorrow-show-top-level)) "sorrow"))
+    ("s" meq/sorrow-show-top-level "sorrow"))
 
 (cosmoem-def
     :show-funs #'meq/sorrow-cosmoem-show
@@ -219,8 +214,7 @@
 (defdeino+ toggles (:color blue)
     ("e" meq/toggle-evil "evil"))
 (defdeino+ all-keymaps (:color blue)
-    ("e" (progn (setq meq/var/all-keymaps-map 'evil-normal-state-map)
-    (meq/evil-show-top-level)) "evil"))
+    ("e" meq/evil-show-top-level "evil"))
 
 (cosmoem-def
     :show-funs #'meq/evil-cosmoem-show
@@ -262,8 +256,7 @@
 (defdeino+ toggles (:color blue)
     ("g" meq/toggle-god "god"))
 (defdeino+ all-keymaps (:color blue)
-    ("g" (progn (setq meq/var/all-keymaps-map 'global-map)
-    (meq/god-show-top-level)) "god"))
+    ("g" meq/god-show-top-level "god"))
 
 (cosmoem-def
     :show-funs #'meq/god-cosmoem-show
@@ -305,8 +298,7 @@
 (defdeino+ toggles (:color blue)
     ("x" meq/toggle-xah "xah"))
 (defdeino+ all-keymaps (:color blue)
-    ("x" (progn (setq meq/var/all-keymaps-map 'xah-fly-command-map)
-    (meq/xah-show-top-level)) "xah"))
+    ("x" meq/xah-show-top-level "xah"))
 
 (cosmoem-def
     :show-funs #'meq/xah-cosmoem-show
@@ -348,8 +340,7 @@
 (defdeino+ toggles (:color blue)
     ("o" meq/toggle-objed "objed"))
 (defdeino+ all-keymaps (:color blue)
-    ("o" (progn (setq meq/var/all-keymaps-map 'objed-map)
-    (meq/objed-show-top-level)) "objed"))
+    ("o" meq/objed-show-top-level "objed"))
 
 (cosmoem-def
     :show-funs #'meq/objed-cosmoem-show
@@ -391,8 +382,7 @@
 (defdeino+ toggles (:color blue)
     ("m" meq/toggle-modalka "modalka"))
 (defdeino+ all-keymaps (:color blue)
-    ("m" (progn (setq meq/var/all-keymaps-map 'modalka-mode-map)
-    (meq/modalka-show-top-level)) "modalka"))
+    ("m" meq/modalka-show-top-level "modalka"))
 
 (cosmoem-def
     :show-funs #'meq/modalka-cosmoem-show
@@ -434,8 +424,7 @@
 (defdeino+ toggles (:color blue)
     ("l" meq/toggle-lispy "lispy"))
 (defdeino+ all-keymaps (:color blue)
-    ("l" (progn (setq meq/var/all-keymaps-map 'lispy-mode-map)
-    (meq/lispy-show-top-level)) "lispy"))
+    ("l" meq/lispy-show-top-level "lispy"))
 
 (cosmoem-def
     :show-funs #'meq/lispy-cosmoem-show

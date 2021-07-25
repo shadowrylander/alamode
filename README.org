@@ -12,8 +12,7 @@
 (format-spec "(defdeino+ toggles (:color blue)
     (\"%s\" meq/toggle-%p \"%p\"))
 (defdeino+ all-keymaps (:color blue)
-    (\"%s\" (progn (setq meq/var/all-keymaps-map '%m)
-    (meq/%p-show-top-level)) \"%p\"))
+    (\"%s\" meq/%p-show-top-level \"%p\"))
 
 (cosmoem-def
     :show-funs #'meq/%p-cosmoem-show
@@ -89,8 +88,6 @@
 (require 'deino)
 (require 'meq)
 (require 'dash)
-
-(defvar meq/var/all-keymaps-map nil)
 
 ;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
