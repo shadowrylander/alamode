@@ -103,6 +103,7 @@
 
 ;;;###autoload
 (defun meq/aiern-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'aiern (meq/which-key-show-top-level 'aiern-normal-state-map)))
 
 ;;;###autoload
@@ -145,6 +146,7 @@
 
 ;;;###autoload
 (defun meq/ryo-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'ryo-modal (meq/which-key-show-top-level 'ryo-modal-mode-map)))
 
 ;;;###autoload
@@ -187,6 +189,7 @@
 
 ;;;###autoload
 (defun meq/sorrow-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'sorrow (meq/which-key-show-top-level 'sorrow-mode-map)))
 
 ;;;###autoload
@@ -229,6 +232,7 @@
 
 ;;;###autoload
 (defun meq/evil-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'evil (meq/which-key-show-top-level 'evil-normal-state-map)))
 
 ;;;###autoload
@@ -271,6 +275,7 @@
 
 ;;;###autoload
 (defun meq/god-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'god-mode (meq/which-key-show-top-level 'global-map)))
 
 ;;;###autoload
@@ -313,6 +318,7 @@
 
 ;;;###autoload
 (defun meq/xah-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'xah-fly-keys (meq/which-key-show-top-level 'xah-fly-command-map)))
 
 ;;;###autoload
@@ -355,6 +361,7 @@
 
 ;;;###autoload
 (defun meq/objed-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'objed (meq/which-key-show-top-level 'objed-map)))
 
 ;;;###autoload
@@ -397,6 +404,7 @@
 
 ;;;###autoload
 (defun meq/modalka-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'modalka (meq/which-key-show-top-level 'modalka-mode-map)))
 
 ;;;###autoload
@@ -439,6 +447,7 @@
 
 ;;;###autoload
 (defun meq/lispy-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load 'lispy (meq/which-key-show-top-level 'lispy-mode-map)))
 
 ;;;###autoload

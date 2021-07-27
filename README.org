@@ -27,6 +27,7 @@
 
 ;;;###autoload
 (defun meq/%p-show-top-level nil (interactive)
+    (setq meq/var/different-top-level-map t)
     (with-eval-after-load '%f (meq/which-key-show-top-level '%m)))
 
 ;;;###autoload
