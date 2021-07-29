@@ -27,7 +27,10 @@
 
 (require 'deino)
 (require 'meq)
+(require 'prime)
 (require 'dash)
+
+(defvar meq/var/all-keymaps-map nil)
 
 ;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
@@ -85,11 +88,13 @@
             (message (format "Switched to %s mode for the next command ..." prefix))))
     (error "This function should only be called interactively")))
 
-(defdeino+ toggles (:color blue)
-    ("a" meq/toggle-aiern "aiern"))
-(defdeino+ all-keymaps (:color blue)
-    ("a" meq/aiern-show-top-level "aiern"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("a" meq/toggle-aiern "aiern"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("a" meq/aiern-show-top-level "aiern"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/aiern-cosmoem-show
     :hide-funs #'meq/aiern-cosmoem-hide
@@ -99,11 +104,14 @@
 )
 
 ;;;###autoload
+(prime "t a" meq/toggle-aiern-cosmoem "aiern")
+
+;;;###autoload
 (defun meq/aiern-cosmoem-toggle nil (interactive) (with-eval-after-load 'aiern))
 
 ;;;###autoload
 (defun meq/aiern-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'aiern-normal-state-map)
     (with-eval-after-load 'aiern (meq/which-key-show-top-level 'aiern-normal-state-map)))
 
 ;;;###autoload
@@ -128,11 +136,13 @@
 
 (with-eval-after-load 'aiern (add-to-list 'meq/var/modal-modes 'aiern-mode) (add-to-list 'meq/var/modal-prefixes "aiern"))
 
-(defdeino+ toggles (:color blue)
-    ("r" meq/toggle-ryo "ryo"))
-(defdeino+ all-keymaps (:color blue)
-    ("r" meq/ryo-show-top-level "ryo"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("r" meq/toggle-ryo "ryo"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("r" meq/ryo-show-top-level "ryo"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/ryo-cosmoem-show
     :hide-funs #'meq/ryo-cosmoem-hide
@@ -142,11 +152,14 @@
 )
 
 ;;;###autoload
+(prime "t r" meq/toggle-ryo-cosmoem "ryo")
+
+;;;###autoload
 (defun meq/ryo-cosmoem-toggle nil (interactive) (with-eval-after-load 'ryo-modal))
 
 ;;;###autoload
 (defun meq/ryo-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'ryo-modal-mode-map)
     (with-eval-after-load 'ryo-modal (meq/which-key-show-top-level 'ryo-modal-mode-map)))
 
 ;;;###autoload
@@ -171,11 +184,13 @@
 
 (with-eval-after-load 'ryo-modal (add-to-list 'meq/var/modal-modes 'ryo-modal-mode) (add-to-list 'meq/var/modal-prefixes "ryo"))
 
-(defdeino+ toggles (:color blue)
-    ("s" meq/toggle-sorrow "sorrow"))
-(defdeino+ all-keymaps (:color blue)
-    ("s" meq/sorrow-show-top-level "sorrow"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("s" meq/toggle-sorrow "sorrow"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("s" meq/sorrow-show-top-level "sorrow"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/sorrow-cosmoem-show
     :hide-funs #'meq/sorrow-cosmoem-hide
@@ -185,11 +200,14 @@
 )
 
 ;;;###autoload
+(prime "t s" meq/toggle-sorrow-cosmoem "sorrow")
+
+;;;###autoload
 (defun meq/sorrow-cosmoem-toggle nil (interactive) (with-eval-after-load 'sorrow))
 
 ;;;###autoload
 (defun meq/sorrow-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'sorrow-mode-map)
     (with-eval-after-load 'sorrow (meq/which-key-show-top-level 'sorrow-mode-map)))
 
 ;;;###autoload
@@ -214,11 +232,13 @@
 
 (with-eval-after-load 'sorrow (add-to-list 'meq/var/modal-modes 'sorrow-mode) (add-to-list 'meq/var/modal-prefixes "sorrow"))
 
-(defdeino+ toggles (:color blue)
-    ("e" meq/toggle-evil "evil"))
-(defdeino+ all-keymaps (:color blue)
-    ("e" meq/evil-show-top-level "evil"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("e" meq/toggle-evil "evil"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("e" meq/evil-show-top-level "evil"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/evil-cosmoem-show
     :hide-funs #'meq/evil-cosmoem-hide
@@ -228,11 +248,14 @@
 )
 
 ;;;###autoload
+(prime "t e" meq/toggle-evil-cosmoem "evil")
+
+;;;###autoload
 (defun meq/evil-cosmoem-toggle nil (interactive) (with-eval-after-load 'evil))
 
 ;;;###autoload
 (defun meq/evil-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'evil-normal-state-map)
     (with-eval-after-load 'evil (meq/which-key-show-top-level 'evil-normal-state-map)))
 
 ;;;###autoload
@@ -257,11 +280,13 @@
 
 (with-eval-after-load 'evil (add-to-list 'meq/var/modal-modes 'evil-mode) (add-to-list 'meq/var/modal-prefixes "evil"))
 
-(defdeino+ toggles (:color blue)
-    ("g" meq/toggle-god "god"))
-(defdeino+ all-keymaps (:color blue)
-    ("g" meq/god-show-top-level "god"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("g" meq/toggle-god "god"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("g" meq/god-show-top-level "god"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/god-cosmoem-show
     :hide-funs #'meq/god-cosmoem-hide
@@ -271,11 +296,14 @@
 )
 
 ;;;###autoload
+(prime "t g" meq/toggle-god-cosmoem "god")
+
+;;;###autoload
 (defun meq/god-cosmoem-toggle nil (interactive) (with-eval-after-load 'god-mode))
 
 ;;;###autoload
 (defun meq/god-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'global-map)
     (with-eval-after-load 'god-mode (meq/which-key-show-top-level 'global-map)))
 
 ;;;###autoload
@@ -300,11 +328,13 @@
 
 (with-eval-after-load 'god-mode (add-to-list 'meq/var/modal-modes 'god-local-mode) (add-to-list 'meq/var/modal-prefixes "god"))
 
-(defdeino+ toggles (:color blue)
-    ("x" meq/toggle-xah "xah"))
-(defdeino+ all-keymaps (:color blue)
-    ("x" meq/xah-show-top-level "xah"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("x" meq/toggle-xah "xah"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("x" meq/xah-show-top-level "xah"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/xah-cosmoem-show
     :hide-funs #'meq/xah-cosmoem-hide
@@ -314,11 +344,14 @@
 )
 
 ;;;###autoload
+(prime "t x" meq/toggle-xah-cosmoem "xah")
+
+;;;###autoload
 (defun meq/xah-cosmoem-toggle nil (interactive) (with-eval-after-load 'xah-fly-keys))
 
 ;;;###autoload
 (defun meq/xah-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'xah-fly-command-map)
     (with-eval-after-load 'xah-fly-keys (meq/which-key-show-top-level 'xah-fly-command-map)))
 
 ;;;###autoload
@@ -343,11 +376,13 @@
 
 (with-eval-after-load 'xah-fly-keys (add-to-list 'meq/var/modal-modes 'xah-fly-keys) (add-to-list 'meq/var/modal-prefixes "xah"))
 
-(defdeino+ toggles (:color blue)
-    ("o" meq/toggle-objed "objed"))
-(defdeino+ all-keymaps (:color blue)
-    ("o" meq/objed-show-top-level "objed"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("o" meq/toggle-objed "objed"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("o" meq/objed-show-top-level "objed"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/objed-cosmoem-show
     :hide-funs #'meq/objed-cosmoem-hide
@@ -357,11 +392,14 @@
 )
 
 ;;;###autoload
+(prime "t o" meq/toggle-objed-cosmoem "objed")
+
+;;;###autoload
 (defun meq/objed-cosmoem-toggle nil (interactive) (with-eval-after-load 'objed))
 
 ;;;###autoload
 (defun meq/objed-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'objed-map)
     (with-eval-after-load 'objed (meq/which-key-show-top-level 'objed-map)))
 
 ;;;###autoload
@@ -386,11 +424,13 @@
 
 (with-eval-after-load 'objed (add-to-list 'meq/var/modal-modes 'objed-mode) (add-to-list 'meq/var/modal-prefixes "objed"))
 
-(defdeino+ toggles (:color blue)
-    ("m" meq/toggle-modalka "modalka"))
-(defdeino+ all-keymaps (:color blue)
-    ("m" meq/modalka-show-top-level "modalka"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("m" meq/toggle-modalka "modalka"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("m" meq/modalka-show-top-level "modalka"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/modalka-cosmoem-show
     :hide-funs #'meq/modalka-cosmoem-hide
@@ -400,11 +440,14 @@
 )
 
 ;;;###autoload
+(prime "t m" meq/toggle-modalka-cosmoem "modalka")
+
+;;;###autoload
 (defun meq/modalka-cosmoem-toggle nil (interactive) (with-eval-after-load 'modalka))
 
 ;;;###autoload
 (defun meq/modalka-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'modalka-mode-map)
     (with-eval-after-load 'modalka (meq/which-key-show-top-level 'modalka-mode-map)))
 
 ;;;###autoload
@@ -429,11 +472,13 @@
 
 (with-eval-after-load 'modalka (add-to-list 'meq/var/modal-modes 'modalka-mode) (add-to-list 'meq/var/modal-prefixes "modalka"))
 
-(defdeino+ toggles (:color blue)
-    ("l" meq/toggle-lispy "lispy"))
-(defdeino+ all-keymaps (:color blue)
-    ("l" meq/lispy-show-top-level "lispy"))
+;;;###autoload
+(defdeino+ toggles (:color blue) ("l" meq/toggle-lispy "lispy"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) ("l" meq/lispy-show-top-level "lispy"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/lispy-cosmoem-show
     :hide-funs #'meq/lispy-cosmoem-hide
@@ -443,11 +488,14 @@
 )
 
 ;;;###autoload
+(prime "t l" meq/toggle-lispy-cosmoem "lispy")
+
+;;;###autoload
 (defun meq/lispy-cosmoem-toggle nil (interactive) (with-eval-after-load 'lispy))
 
 ;;;###autoload
 (defun meq/lispy-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map 'lispy-mode-map)
     (with-eval-after-load 'lispy (meq/which-key-show-top-level 'lispy-mode-map)))
 
 ;;;###autoload

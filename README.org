@@ -9,11 +9,13 @@
 ;; Adapted From:
 ;; Answer: https://emacs.stackexchange.com/a/7381/31428
 ;; User: https://emacs.stackexchange.com/users/719/adobe
-(format-spec "(defdeino+ toggles (:color blue)
-    (\"%s\" meq/toggle-%p \"%p\"))
-(defdeino+ all-keymaps (:color blue)
-    (\"%s\" meq/%p-show-top-level \"%p\"))
+(format-spec ";;;###autoload
+(defdeino+ toggles (:color blue) (\"%s\" meq/toggle-%p \"%p\"))
 
+;;;###autoload
+(defdeino+ all-keymaps (:color blue) (\"%s\" meq/%p-show-top-level \"%p\"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/%p-cosmoem-show
     :hide-funs #'meq/%p-cosmoem-hide
@@ -23,11 +25,14 @@
 )
 
 ;;;###autoload
+(prime \"t %s\" meq/toggle-%p-cosmoem \"%p\")
+
+;;;###autoload
 (defun meq/%p-cosmoem-toggle nil (interactive) (with-eval-after-load '%f))
 
 ;;;###autoload
 (defun meq/%p-show-top-level nil (interactive)
-    (setq meq/var/different-top-level-map t)
+    (setq meq/var/all-keymaps-map '%m)
     (with-eval-after-load '%f (meq/which-key-show-top-level '%m)))
 
 ;;;###autoload
@@ -88,7 +93,10 @@
 
 (require 'deino)
 (require 'meq)
+(require 'prime)
 (require 'dash)
+
+(defvar meq/var/all-keymaps-map nil)
 
 ;; Adapted From: https://gitlab.com/jjzmajic/cosmoem.el/-/blob/master/cosmoem.el#L83
 ;;;###autoload
