@@ -105,7 +105,7 @@
     (if mode-on
         (when force (meq/which-key--show-popup map force))
         (funcall mode 1)
-        (if use-cosmoem (ignore-errors (funcall (intern (concat "meq/" prefix "-cosmoem-show"))))
+        (if use-cosmoem (ignore-errors (funcall (meq/inconcat "meq/" prefix "-cosmoem-show")))
             (meq/which-key-show-top-level map))))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
