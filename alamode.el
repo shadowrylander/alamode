@@ -57,7 +57,7 @@
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
                             (unwind-protect
-                                (setq overriding-terminal-local-map meq/var/backup-terminal-local-map)
+                                (setq overriding-terminal-local-map meq/var/alamode-backup-terminal-local-map)
                                 (funcall mode -1)
                                 (remove-hook 'post-command-hook post-hook)))
                         (remove-hook 'post-command-hook post-hook))))
@@ -82,7 +82,7 @@
             ;; a mode line lighter and run any hook functions the user has set
             ;; up.  This could be made configurable in the future.
             (funcall mode 1)
-            (setq meq/var/backup-terminal-local-map overriding-terminal-local-map)
+            (setq meq/var/alamode-backup-terminal-local-map overriding-terminal-local-map)
             (setq deino-enabled-temporarily t
                 overriding-terminal-local-map (symbol-value map))
             (message (format "Switched to %s mode for the next command ..." prefix))))
