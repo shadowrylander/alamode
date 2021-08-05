@@ -105,8 +105,9 @@
     (if mode-on
         (when force (meq/which-key--show-popup map force))
         (funcall mode 1)
-        (if use-cosmoem (ignore-errors (funcall (meq/inconcat "meq/" prefix "-cosmoem-show")))
-            (meq/which-key-show-top-level map))))
+        (with-eval-after-load 'which-key
+            (if use-cosmoem (ignore-errors (funcall (meq/inconcat "meq/" prefix "-cosmoem-show")))
+                (meq/which-key-show-top-level map)))))
 
 ;; Adapted From: https://github.com/emacsorphanage/god-mode/blob/master/god-mode.el#L392
 ;;;###autoload
@@ -125,6 +126,7 @@
                             (unwind-protect
                                 (setq overriding-terminal-local-map meq/var/alamode-backup-terminal-local-map)
                                 (funcall mode -1)
+                                (meq/which-key-show-top-level)
                                 (remove-hook 'post-command-hook post-hook)))
                         (remove-hook 'post-command-hook post-hook))))
                 (kill-transient-map
@@ -148,6 +150,7 @@
             ;; a mode line lighter and run any hook functions the user has set
             ;; up.  This could be made configurable in the future.
             (funcall mode 1)
+            (with-eval-after-load 'which-key (meq/which-key-show-top-level map))
             (setq meq/var/alamode-backup-terminal-local-map overriding-terminal-local-map)
             (setq deino-enabled-temporarily t
                 overriding-terminal-local-map (symbol-value map))
