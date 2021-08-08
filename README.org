@@ -16,6 +16,9 @@
 (defdeino+ all-keymaps (:color blue) (\"%s\" meq/%p-show-top-level \"%p\"))
 
 ;;;###autoload
+(defminorua 4 %n deino-ala-%p nil \"; m %s\" (\"`\" nil \"cancel\"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/%p-cosmoem-show
     :hide-funs #'meq/%p-cosmoem-hide
@@ -91,10 +94,11 @@
 
 ;;; Code:
 
-(require 'deino)
-(require 'meq)
-(require 'prime)
 (require 'dash)
+(require 'meq)
+(require 'deino)
+(require 'prime)
+(require 'uru)
 
 (defvar meq/var/all-keymaps-map nil)
 

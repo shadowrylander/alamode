@@ -25,10 +25,11 @@
 
 ;;; Code:
 
-(require 'deino)
-(require 'meq)
-(require 'prime)
 (require 'dash)
+(require 'meq)
+(require 'deino)
+(require 'prime)
+(require 'uru)
 
 (defvar meq/var/all-keymaps-map nil)
 
@@ -98,6 +99,9 @@
 (defdeino+ all-keymaps (:color blue) ("a" meq/aiern-show-top-level "aiern"))
 
 ;;;###autoload
+(defminorua 4 aiern-mode deino-ala-aiern nil "; m a" ("`" nil "cancel"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/aiern-cosmoem-show
     :hide-funs #'meq/aiern-cosmoem-hide
@@ -144,6 +148,9 @@
 
 ;;;###autoload
 (defdeino+ all-keymaps (:color blue) ("r" meq/ryo-show-top-level "ryo"))
+
+;;;###autoload
+(defminorua 4 ryo-modal-mode deino-ala-ryo nil "; m r" ("`" nil "cancel"))
 
 ;;;###autoload
 (cosmoem-def
@@ -194,6 +201,9 @@
 (defdeino+ all-keymaps (:color blue) ("s" meq/sorrow-show-top-level "sorrow"))
 
 ;;;###autoload
+(defminorua 4 sorrow-mode deino-ala-sorrow nil "; m s" ("`" nil "cancel"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/sorrow-cosmoem-show
     :hide-funs #'meq/sorrow-cosmoem-hide
@@ -240,6 +250,9 @@
 
 ;;;###autoload
 (defdeino+ all-keymaps (:color blue) ("e" meq/evil-show-top-level "evil"))
+
+;;;###autoload
+(defminorua 4 evil-mode deino-ala-evil nil "; m e" ("`" nil "cancel"))
 
 ;;;###autoload
 (cosmoem-def
@@ -290,6 +303,9 @@
 (defdeino+ all-keymaps (:color blue) ("g" meq/god-show-top-level "god"))
 
 ;;;###autoload
+(defminorua 4 god-local-mode deino-ala-god nil "; m g" ("`" nil "cancel"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/god-cosmoem-show
     :hide-funs #'meq/god-cosmoem-hide
@@ -336,6 +352,9 @@
 
 ;;;###autoload
 (defdeino+ all-keymaps (:color blue) ("x" meq/xah-show-top-level "xah"))
+
+;;;###autoload
+(defminorua 4 xah-fly-keys deino-ala-xah nil "; m x" ("`" nil "cancel"))
 
 ;;;###autoload
 (cosmoem-def
@@ -386,6 +405,9 @@
 (defdeino+ all-keymaps (:color blue) ("o" meq/objed-show-top-level "objed"))
 
 ;;;###autoload
+(defminorua 4 objed-mode deino-ala-objed nil "; m o" ("`" nil "cancel"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/objed-cosmoem-show
     :hide-funs #'meq/objed-cosmoem-hide
@@ -434,6 +456,9 @@
 (defdeino+ all-keymaps (:color blue) ("m" meq/modalka-show-top-level "modalka"))
 
 ;;;###autoload
+(defminorua 4 modalka-mode deino-ala-modalka nil "; m m" ("`" nil "cancel"))
+
+;;;###autoload
 (cosmoem-def
     :show-funs #'meq/modalka-cosmoem-show
     :hide-funs #'meq/modalka-cosmoem-hide
@@ -480,6 +505,9 @@
 
 ;;;###autoload
 (defdeino+ all-keymaps (:color blue) ("l" meq/lispy-show-top-level "lispy"))
+
+;;;###autoload
+(defminorua 4 lispy-mode deino-ala-lispy nil "; m l" ("`" nil "cancel"))
 
 ;;;###autoload
 (cosmoem-def
