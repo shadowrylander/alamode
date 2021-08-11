@@ -48,8 +48,7 @@
 ;;;###autoload
 (defun meq/execute-with-current-bindings-inner (mode prefix mode-on map &optional use-cosmoem called-interactively)
     (interactive "d")
-    (if called-interactively
-        (unless mode-on
+    (unless mode-on
         (letrec ((caller this-command)
                 (buffer (current-buffer))
                 (cleanup
@@ -89,8 +88,7 @@
             (setq meq/var/alamode-backup-terminal-local-map overriding-terminal-local-map)
             (setq deino-enabled-temporarily t
                 overriding-terminal-local-map (symbol-value map))
-            (message (format "Switched to %s mode for the next command ..." prefix))))
-    (error "This function should only be called interactively")))
+            (message (format "Switched to %s mode for the next command ..." prefix)))))
 
 ;;;###autoload
 (defdeino+ toggles (:color blue) ("a" meq/toggle-aiern "aiern"))
