@@ -129,26 +129,24 @@
                     (if (buffer-live-p buffer)
                         (with-current-buffer buffer
                             (unwind-protect
-                                (setq overriding-terminal-local-map meq/var/alamode-backup-terminal-local-map)
-                                (funcall mode -1)
-                                (when meq/var/alamode-aiern-was-on (aiern-mode 1))
-                                (when meq/var/alamode-evil-was-on (evil-mode 1))
-                                (meq/which-key-show-top-level)
+                                (progn
+                                    (setq overriding-terminal-local-map meq/var/alamode-backup-terminal-local-map)
+                                    (funcall mode -1)
+                                    (when meq/var/alamode-aiern-was-on (aiern-mode 1))
+                                    (when meq/var/alamode-evil-was-on (evil-mode 1))
+                                    (meq/which-key-show-top-level))
                                 (remove-hook 'post-command-hook post-hook)))
                         (remove-hook 'post-command-hook post-hook))))
-                (kill-transient-map
-                    (set-transient-map
-                    map 'meq/god-prefix-command-p cleanup))
-                (post-hook
-                    (lambda ()
-                    (unless (and
-                            (eq this-command caller)
-                            ;; If we've entered the minibuffer, this implies
-                            ;; a non-prefix command was run, even if
-                            ;; `this-command' has not changed.  For example,
-                            ;; `execute-extended-command' behaves this way.
-                            (not (window-minibuffer-p)))
-                        (funcall kill-transient-map)))))
+                (kill-transient-map (lambda nil (interactive)
+                                        (set-transient-map map 'meq/god-prefix-command-p cleanup)))
+                (post-hook (lambda nil (unless (and
+                                                (eq this-command caller)
+                                                ;; If we've entered the minibuffer, this implies
+                                                ;; a non-prefix command was run, even if
+                                                ;; `this-command' has not changed.  For example,
+                                                ;; `execute-extended-command' behaves this way.
+                                                (not (window-minibuffer-p)))
+                                            (funcall kill-transient-map)))))
             (add-hook 'post-command-hook post-hook)
             ;; Pass the current prefix argument along to the next command.
             (setq prefix-arg current-prefix-arg)
