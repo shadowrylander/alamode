@@ -322,7 +322,7 @@
 
 \(fn &optional CALLED-INTERACTIVELY)" t nil)
 
-(register-definition-prefixes "alamode" '("meq/var/al"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "alamode" '("meq/var/al")))
 
 ;;;***
 
